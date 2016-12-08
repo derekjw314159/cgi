@@ -273,6 +273,8 @@ for_col. varnames do.
 	if. col_index=0 do. key=. val end.
 	NB. If not boxed, box now
 	if. 0=L. val do. val=. <"_1 val end.
+	NB. If multiple rank, box again
+	if. 1<$$ val do. val=. <"_1 val end.
 	res=. res,. val
 end. 
 NB. box each row
@@ -328,6 +330,9 @@ for_col. key do.
 	if. (3!:0 >". (>col)) e. 1 4 8 16 do. (>col)=: >". (>col) 
 	NB. If single characters, open
 	elseif.  0=+/; ($&$) each ". > col do.
+		(>col)=: >". (>col)
+	NB. If matrix of value, open
+	elseif. 1< >./; ($&$) each ". > col do.
 		(>col)=: >". (>col)
 	end.
 end. 
