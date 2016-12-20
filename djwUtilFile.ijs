@@ -326,6 +326,12 @@ res=. (#key) {."1 res
 NB. transpose and box by row
 for_col. key do.
 	(>col)=: col_index{"1 res
+	NB. Special case if rank = 1 because empty character
+	NB. is interpretted as a number
+	if. *. / 0=># each ". > col do.
+	NB. if. 1= >./; ($&$) each ". > col do.
+		continue.
+	end.
 	NB. If boxed number, unbox
 	if. (3!:0 >". (>col)) e. 1 4 8 16 do. (>col)=: >". (>col) 
 	NB. If single characters, open
