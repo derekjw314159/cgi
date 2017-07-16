@@ -5,32 +5,6 @@ require 'files'
 require 'jfiles'
 NB. require 'misc'
 
-utFilePut=: 3 : 0
-NB. =====================================================
-NB. utFilePut
-NB. =====================================================
-NB. Utility to put a number of variables to a file
-NB. y is the file
-NB. x is the list of variables, which defaults to the existing list
-(>jread y ; 0) utFilePut y
-:
-vars=.>jread y ; 0
-x=. dltb each x
-ix=. vars i. x
-NB, .. check for non existent names and add any not found
-vars=. vars, (ix >: #vars) # x
-(<vars) jreplace y; 0
-ix=. vars i. x
-NB. .. need to add some null entries
-for. i. 0>. 1 + (>. / ix) - (1 { jsize y) do.
-(<'') jappend y
-end. 
-NB. Loop round to write or it is too heavy a single line
-NB. for_k. ix do.
-NB.	(". >k_index{x) jreplace y; 1+k
-NB. end.
-(". each x) jreplace y; 1+ix
-)
 
 utFileSafePut=: 3 : 0
 NB. =====================================================

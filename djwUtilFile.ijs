@@ -81,7 +81,8 @@ vars=. vars, (ix >: #vars) # x
 (<vars) jreplace y; 0
 ix=. vars i. x
 NB. .. need to add some null entries
-for. i. 0>. 1 + (>. / ix) - (1 { jsize y) do.
+NB. Needs to be 2+ to create the correct number of entries
+for. i. 0>. 2 + (>. / ix) - (1 { jsize y) do.
 (<'') jappend y
 end. 
 NB. Loop round to write or it is too heavy a single line
@@ -99,7 +100,7 @@ NB. Utility to put a number of variables to a file
 NB. but throw an error if the variables are not already there
 NB. y is the file
 NB. x is the list of variables, which defaults to the existing list
-(>jread y ; 0) utFilePut y
+(>jread y ; 0) utFileSafePut y
 :
 vars=.>jread y ; 0
 x=. dltb each x
