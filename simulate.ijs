@@ -41,7 +41,6 @@ each=: &.>
 dltb_z_=: #~ [: (+./\ *. +./\.) ' '&~:
 18!:4 <'base'
 
-
 NB. =========================================================
 NB. cgiparms v return cgi parameters
 cgiparms=: 3 : 0
@@ -72,7 +71,6 @@ p=. a. {~ 16 #. 16 | a i. 2 {.&> y
 
 NB. Postvars are the second parameter onwards
 glPostVars=:  1}. cgiparms''
-
 
 NB. ==========================================================
 NB. Global variables
@@ -180,6 +178,7 @@ if. 0 < # 1!:0 <filepath,'/',basename do.
     NB. Load the script from the basename
     NB. looping round directories to load each ijs file in turn
     name=. filepath
+    
     for_chunk. params do.
 	name=. name,'/',>chunk
 	if. 0< # 1!:0 name do.
@@ -197,6 +196,8 @@ if. 0 < # 1!:0 <filepath,'/',basename do.
 	    NB. Killer line which executes the right function
 	    NB. Pass the remaining parameters
 		". 'xx=.',ff,' (1+chunk) }. params'
+		NB. After function has run, need to exit if it is from PHP or external shell
+		if. (<'PHP') e. ARGV do. exitexit 2 end.
 		return.    
 	    NB. jweb_denhambowl_course_e ''
 	end.
