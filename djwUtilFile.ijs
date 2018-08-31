@@ -256,6 +256,8 @@ if. -. 0 -: 4!:0 <key do.
 end.
 (". key) utKeyPut y NB. Write them all
 :
+NB. Drop straight out if no values
+if. (0=#x) do. return. end.
 res=. ((#x),0)$a:
 varnames=. >keyread y; '_dictionary'
 for_col. varnames do.
